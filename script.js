@@ -1,13 +1,3 @@
-// const zero = document.querySelector("#zero");
-// const one = document.querySelector("#one");
-// const two = document.querySelector("#two");
-// const three = document.querySelector("#3");
-// const four = document.querySelector("#4");
-// const five = document.querySelector("#5");
-// const six = document.querySelector("#6");
-// const seven = document.querySelector("#7");
-// const eight = document.querySelector("#8");
-// const nine = document.querySelector("#9");
 const plus = document.querySelector("#plus");
 const minus = document.querySelector("#minus");
 const mult = document.querySelector("#mult");
@@ -81,4 +71,5 @@ equals.addEventListener("click", () => {
         secondNumber = parseInt(equation[1]);
         display.textContent = divide(firstNumber, secondNumber);
     }
+    firstNumber = display.textContent;
 });
