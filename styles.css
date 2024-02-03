@@ -36,6 +36,7 @@ body {
 
 .math {
     margin-bottom: 0;
+    padding-bottom: 5px;
 }
 
 .lowerSection {
@@ -50,13 +51,17 @@ body {
     margin-bottom: 20px;
 }
 
-.btn {
+.btn,
+#clear,
+#equals {
     height: 25px;
     width: 50px;
     border: none;
     background-color: white;
 }
 
-.btn:hover {
+.btn:hover,
+#clear:hover,
+#equals:hover {
     cursor: pointer;
 }
