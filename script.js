@@ -57,23 +57,28 @@ clr.addEventListener("click", () => {
 
 equals.addEventListener("click", () => {
     let equation = display.textContent.split("");
-    firstNumber = parseInt(equation[0]);
-    operator = equation[1];
-    secondNumber = parseInt(equation[2]);
-    if (operator === "+") {
-        let ans = firstNumber + secondNumber;
-        display.textContent = ans;
+    if (equation.includes("+")) {
+        equation = equation.join("").split("+");
+        firstNumber = parseInt(equation[0]);
+        secondNumber = parseInt(equation[1]);
+        display.textContent = add(firstNumber, secondNumber);
     }
-    if (operator === "-") {
-        let ans = firstNumber - secondNumber;
-        display.textContent = ans;
+    if (equation.includes("-")) {
+        equation = equation.join("").split("-");
+        firstNumber = parseInt(equation[0]);
+        secondNumber = parseInt(equation[1]);
+        display.textContent = subtract(firstNumber, secondNumber);
     }
-    if (operator === "*") {
-        let ans = firstNumber * secondNumber;
-        display.textContent = ans;
+    if (equation.includes("*")) {
+        equation = equation.join("").split("*");
+        firstNumber = parseInt(equation[0]);
+        secondNumber = parseInt(equation[1]);
+        display.textContent = multiply(firstNumber, secondNumber);
     }
-    if (operator === "/") {
-        let ans = firstNumber / secondNumber;
-        display.textContent = ans;
+    if (equation.includes("/")) {
+        equation = equation.join("").split("/");
+        firstNumber = parseInt(equation[0]);
+        secondNumber = parseInt(equation[1]);
+        display.textContent = divide(firstNumber, secondNumber);
     }
 });
