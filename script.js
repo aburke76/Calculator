@@ -69,7 +69,12 @@ equals.addEventListener("click", () => {
         equation = equation.join("").split("/");
         firstNumber = parseInt(equation[0]);
         secondNumber = parseInt(equation[1]);
-        display.textContent = divide(firstNumber, secondNumber);
+        if (secondNumber == 0) {
+            alert("Nice try, you ding-dong.");
+            clear();
+        } else {
+            display.textContent = divide(firstNumber, secondNumber);
+        }
     }
     firstNumber = display.textContent;
 });
