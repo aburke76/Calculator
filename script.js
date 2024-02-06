@@ -33,17 +33,29 @@ function clear() {
 
 let firstNumber;
 let secondNumber;
-let operator;
+let operators = ["+", "-", "*", "/"];
 
 for (let i = 0; i < btn.length; i++) {
     btn[i].addEventListener("click", () => {
+        let displayArray = [];
         display.textContent += btn[i].textContent;
+        displayArray.push(display.textContent);
+        if (
+            displayArray[0] == "+" ||
+            displayArray[0] == "-" ||
+            displayArray[0] == "*" ||
+            displayArray[0] == "/"
+        ) {
+            display.textContent = "";
+        }
     });
 }
 
 clr.addEventListener("click", () => {
     clear();
 });
+
+plus.addEventListener("click", () => {});
 
 equals.addEventListener("click", () => {
     let equation = display.textContent.split("");
