@@ -70,7 +70,7 @@ equals.addEventListener("click", () => {
         firstNumber = parseInt(equation[0]);
         secondNumber = parseInt(equation[1]);
         if (secondNumber == 0) {
-            alert("Nice try, you ding-dong.");
+            alert("Nice try, ya ding-dong. Start over.");
             clear();
         } else {
             display.textContent = divide(firstNumber, secondNumber);
