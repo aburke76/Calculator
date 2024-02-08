@@ -12,6 +12,8 @@ const operators = document.querySelectorAll(".operator");
 let firstNumber;
 let secondNumber;
 let mathArray = [];
+let newEquation = false;
+let isNumClicked = false;
 
 function add(a, b) {
     return a + b;
@@ -36,33 +38,17 @@ function operate(a, b, func) {
 function clear() {
     display.textContent = "";
     mathArray = [];
-    plus.disabled = false;
+    enableOperators();
 }
 
-for (let i = 0; i < operators.length; i++) {
-    operators[i].addEventListener("click", () => {
-        operators.forEach((el) => {
-            el.disabled = true;
+function disableOperators() {
+    for (let i = 0; i < operators.length; i++) {
+        operators[i].addEventListener("click", () => {
+            operators.forEach((el) => {
+                el.disabled = true;
+            });
         });
-    });
-}
-
-for (let i = 0; i < btn.length; i++) {
-    btn[i].addEventListener("click", () => {
-        display.textContent += btn[i].textContent;
-        mathArray = display.textContent.split("");
-        if (
-            mathArray[0] == "+" ||
-            mathArray[0] == "-" ||
-            mathArray[0] == "*" ||
-            mathArray[0] == "/"
-        ) {
-            display.textContent = "";
-            mathArray = [];
-            enableOperators();
-        }
-        console.log(`mathArray len is ${mathArray.length}`);
-    });
+    }
 }
 
 function enableOperators() {
@@ -71,43 +57,76 @@ function enableOperators() {
     });
 }
 
+for (let i = 0; i < nums.length; i++) {
+    nums[i].addEventListener("click", () => {
+        isNumClicked = true;
+        if (newEquation == true) {
+            display.textContent = "";
+            display.textContent += nums[i].textContent;
+            mathArray = display.textContent;
+        } else {
+            display.textContent += nums[i].textContent;
+            mathArray = display.textContent;
+        }
+    });
+}
+
+for (let i = 0; i < operators.length; i++) {
+    operators[i].addEventListener("click", () => {
+        newEquation = false;
+        if (isNumClicked == false) {
+            display.textContent = "";
+        }
+        if (isNumClicked == true) {
+            display.textContent += operators[i].textContent;
+            disableOperators();
+        }
+        enableOperators();
+    });
+}
+
 equals.addEventListener("click", () => {
     if (mathArray.includes("+")) {
-        mathArray = mathArray.join("").split("+");
+        mathArray = mathArray.split("+");
         console.log(mathArray);
         firstNumber = parseInt(mathArray[0]);
         secondNumber = parseInt(mathArray[1]);
         display.textContent = operate(firstNumber, secondNumber, add);
-        mathArray.length = 0;
-        console.log(`mathArray len is ${mathArray.length}`);
+        mathArray = [display.textContent];
     }
     if (mathArray.includes("-")) {
-        mathArray = mathArray.join("").split("-");
+        mathArray = mathArray.split("-");
         console.log(mathArray);
         firstNumber = parseInt(mathArray[0]);
         secondNumber = parseInt(mathArray[1]);
         display.textContent = operate(firstNumber, secondNumber, subtract);
-        mathArray = [];
+        mathArray = [display.textContent];
     }
     if (mathArray.includes("*")) {
-        mathArray = mathArray.join("").split("*");
+        mathArray = mathArray.split("*");
         console.log(mathArray);
         firstNumber = parseInt(mathArray[0]);
         secondNumber = parseInt(mathArray[1]);
         display.textContent = operate(firstNumber, secondNumber, multiply);
-        mathArray = [];
+        mathArray = [display.textContent];
     }
     if (mathArray.includes("/")) {
-        mathArray = mathArray.join("").split("/");
+        mathArray = mathArray.split("/");
         console.log(mathArray);
         firstNumber = parseInt(mathArray[0]);
         secondNumber = parseInt(mathArray[1]);
         display.textContent = operate(firstNumber, secondNumber, divide);
-        mathArray = [];
+        if (secondNumber == 0) {
+            alert("You can't do that, you ding dong.");
+            clear();
+        }
+        mathArray = [display.textContent];
     }
     enableOperators();
+    newEquation = true;
 });
 
 clr.addEventListener("click", () => {
     clear();
+    enableOperators();
 });
