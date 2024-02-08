@@ -2,6 +2,7 @@
 
 * {
     box-sizing: border-box;
+    font-family: "Merriweather", serif;
 }
 
 body {
@@ -10,6 +11,12 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: #001d3d;
+}
+
+h1 {
+    color: goldenrod;
+    text-shadow: 0 0 8px;
 }
 
 .calculator {
@@ -17,11 +24,11 @@ body {
     flex-direction: column;
     align-items: center;
     height: 350px;
-    width: 280px;
-    border: solid 1px black;
+    width: 270px;
     border-radius: 1em;
-    box-shadow: 5px 5px 5px;
-    /* background-color: ; */
+    background-color: #001d3d;
+    margin-top: 20px;
+    gap: 20px;
 }
 
 .display {
@@ -29,13 +36,14 @@ body {
     justify-content: end;
     align-items: flex-end;
     height: 100px;
-    width: 270px;
-    border: solid 1px black;
+    width: 300px;
     border-radius: 0.5em;
     margin-top: 20px;
+    margin-bottom: 25px;
     padding-right: 7px;
-    /* background-color: ; */
-    box-shadow: 5px 0px 5px;
+    background-color: #001d3d;
+    box-shadow: 0 0 50px;
+    color: goldenrod;
 }
 
 .math {
@@ -58,17 +66,21 @@ body {
 .btn,
 #clear,
 #equals {
-    height: 25px;
-    width: 50px;
+    height: 27px;
+    width: 55px;
     border: none;
-    /* background-color: ; */
+    background-color: #001d3d;
     border-radius: 10px;
-    transition: background-color 0.25s ease-in-out;
+    font-size: larger;
+    color: white;
+    transition: all 0.35s ease-in-out;
 }
 
 .btn:hover,
 #clear:hover,
 #equals:hover {
     cursor: pointer;
-    background-color: #00bbf9;
+    background-color: #001d3d;
+    color: goldenrod;
+    box-shadow: 0 0 5px;
 }

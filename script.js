@@ -37,6 +37,8 @@ function operate(a, b, func) {
 
 function clear() {
     display.textContent = "";
+    newEquation = false;
+    isNumClicked = false;
     mathArray = [];
     enableOperators();
 }
@@ -62,12 +64,10 @@ for (let i = 0; i < nums.length; i++) {
         isNumClicked = true;
         if (newEquation == true) {
             display.textContent = "";
-            display.textContent += nums[i].textContent;
-            mathArray = display.textContent;
-        } else {
-            display.textContent += nums[i].textContent;
-            mathArray = display.textContent;
+            newEquation = false;
         }
+        display.textContent += nums[i].textContent;
+        mathArray = display.textContent;
     });
 }
 
@@ -102,8 +102,8 @@ equals.addEventListener("click", () => {
         display.textContent = operate(firstNumber, secondNumber, subtract);
         mathArray = [display.textContent];
     }
-    if (mathArray.includes("*")) {
-        mathArray = mathArray.split("*");
+    if (mathArray.includes("x")) {
+        mathArray = mathArray.split("x");
         console.log(mathArray);
         firstNumber = parseInt(mathArray[0]);
         secondNumber = parseInt(mathArray[1]);
