@@ -5,7 +5,13 @@ const divi = document.querySelector("#divide");
 const equals = document.querySelector("#equals");
 const clr = document.querySelector("#clear");
 const btn = document.querySelectorAll(".btn");
+const nums = document.querySelectorAll(".num");
 const display = document.querySelector("h2");
+const operators = document.querySelectorAll(".operator");
+
+let firstNumber;
+let secondNumber;
+let mathArray = [];
 
 function add(a, b) {
     return a + b;
@@ -29,64 +35,79 @@ function operate(a, b, func) {
 
 function clear() {
     display.textContent = "";
+    mathArray = [];
+    plus.disabled = false;
 }
 
-let firstNumber;
-let secondNumber;
-let operators = ["+", "-", "*", "/"];
-
-for (let i = 0; i < btn.length; i++) {
-    btn[i].addEventListener("click", () => {
-        let displayArray = [];
-        display.textContent += btn[i].textContent;
-        displayArray.push(display.textContent);
-        if (
-            displayArray[0] == "+" ||
-            displayArray[0] == "-" ||
-            displayArray[0] == "*" ||
-            displayArray[0] == "/"
-        ) {
-            display.textContent = "";
-        }
+for (let i = 0; i < operators.length; i++) {
+    operators[i].addEventListener("click", () => {
+        operators.forEach((el) => {
+            el.disabled = true;
+        });
     });
 }
 
-clr.addEventListener("click", () => {
-    clear();
-});
+for (let i = 0; i < btn.length; i++) {
+    btn[i].addEventListener("click", () => {
+        display.textContent += btn[i].textContent;
+        mathArray = display.textContent.split("");
+        if (
+            mathArray[0] == "+" ||
+            mathArray[0] == "-" ||
+            mathArray[0] == "*" ||
+            mathArray[0] == "/"
+        ) {
+            display.textContent = "";
+            mathArray = [];
+            enableOperators();
+        }
+        console.log(`mathArray len is ${mathArray.length}`);
+    });
+}
 
-plus.addEventListener("click", () => {});
+function enableOperators() {
+    operators.forEach((el) => {
+        el.disabled = false;
+    });
+}
 
 equals.addEventListener("click", () => {
-    let equation = display.textContent.split("");
-    if (equation.includes("+")) {
-        equation = equation.join("").split("+");
-        firstNumber = parseInt(equation[0]);
-        secondNumber = parseInt(equation[1]);
-        display.textContent = add(firstNumber, secondNumber);
+    if (mathArray.includes("+")) {
+        mathArray = mathArray.join("").split("+");
+        console.log(mathArray);
+        firstNumber = parseInt(mathArray[0]);
+        secondNumber = parseInt(mathArray[1]);
+        display.textContent = operate(firstNumber, secondNumber, add);
+        mathArray.length = 0;
+        console.log(`mathArray len is ${mathArray.length}`);
     }
-    if (equation.includes("-")) {
-        equation = equation.join("").split("-");
-        firstNumber = parseInt(equation[0]);
-        secondNumber = parseInt(equation[1]);
-        display.textContent = subtract(firstNumber, secondNumber);
+    if (mathArray.includes("-")) {
+        mathArray = mathArray.join("").split("-");
+        console.log(mathArray);
+        firstNumber = parseInt(mathArray[0]);
+        secondNumber = parseInt(mathArray[1]);
+        display.textContent = operate(firstNumber, secondNumber, subtract);
+        mathArray = [];
     }
-    if (equation.includes("*")) {
-        equation = equation.join("").split("*");
-        firstNumber = parseInt(equation[0]);
-        secondNumber = parseInt(equation[1]);
-        display.textContent = multiply(firstNumber, secondNumber);
+    if (mathArray.includes("*")) {
+        mathArray = mathArray.join("").split("*");
+        console.log(mathArray);
+        firstNumber = parseInt(mathArray[0]);
+        secondNumber = parseInt(mathArray[1]);
+        display.textContent = operate(firstNumber, secondNumber, multiply);
+        mathArray = [];
     }
-    if (equation.includes("/")) {
-        equation = equation.join("").split("/");
-        firstNumber = parseInt(equation[0]);
-        secondNumber = parseInt(equation[1]);
-        if (secondNumber == 0) {
-            alert("Nice try, ya ding-dong. Start over.");
-            clear();
-        } else {
-            display.textContent = divide(firstNumber, secondNumber);
-        }
+    if (mathArray.includes("/")) {
+        mathArray = mathArray.join("").split("/");
+        console.log(mathArray);
+        firstNumber = parseInt(mathArray[0]);
+        secondNumber = parseInt(mathArray[1]);
+        display.textContent = operate(firstNumber, secondNumber, divide);
+        mathArray = [];
     }
-    firstNumber = display.textContent;
+    enableOperators();
+});
+
+clr.addEventListener("click", () => {
+    clear();
 });
