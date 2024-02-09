@@ -65,7 +65,8 @@ h1 {
 
 .btn,
 #clear,
-#equals {
+#equals,
+#delete {
     height: 27px;
     width: 55px;
     border: none;
@@ -76,9 +77,15 @@ h1 {
     transition: all 0.35s ease-in-out;
 }
 
+#clear,
+#delete {
+    width: 120px;
+}
+
 .btn:hover,
 #clear:hover,
-#equals:hover {
+#equals:hover,
+#delete:hover {
     cursor: pointer;
     background-color: #001d3d;
     color: goldenrod;

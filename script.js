@@ -8,6 +8,8 @@ const btn = document.querySelectorAll(".btn");
 const nums = document.querySelectorAll(".num");
 const display = document.querySelector("h2");
 const operators = document.querySelectorAll(".operator");
+const dot = document.querySelector("#dot");
+const del = document.querySelector("#delete");
 
 let firstNumber;
 let secondNumber;
@@ -29,10 +31,6 @@ function divide(a, b) {
 
 function multiply(a, b) {
     return a * b;
-}
-
-function operate(a, b, func) {
-    return func(a, b);
 }
 
 function clear() {
@@ -85,37 +83,43 @@ for (let i = 0; i < operators.length; i++) {
     });
 }
 
+dot.addEventListener("click", () => {
+    dot.disabled = true;
+});
+
 equals.addEventListener("click", () => {
     if (mathArray.includes("+")) {
         mathArray = mathArray.split("+");
-        console.log(mathArray);
-        firstNumber = parseInt(mathArray[0]);
-        secondNumber = parseInt(mathArray[1]);
-        display.textContent = operate(firstNumber, secondNumber, add);
+        firstNumber = parseFloat(mathArray[0]);
+        secondNumber = parseFloat(mathArray[1]);
+        display.textContent = Number(add(firstNumber, secondNumber).toFixed(4));
         mathArray = [display.textContent];
     }
     if (mathArray.includes("-")) {
         mathArray = mathArray.split("-");
-        console.log(mathArray);
-        firstNumber = parseInt(mathArray[0]);
-        secondNumber = parseInt(mathArray[1]);
-        display.textContent = operate(firstNumber, secondNumber, subtract);
+        firstNumber = parseFloat(mathArray[0]);
+        secondNumber = parseFloat(mathArray[1]);
+        display.textContent = Number(
+            subtract(firstNumber, secondNumber).toFixed(4)
+        );
         mathArray = [display.textContent];
     }
     if (mathArray.includes("x")) {
         mathArray = mathArray.split("x");
-        console.log(mathArray);
-        firstNumber = parseInt(mathArray[0]);
-        secondNumber = parseInt(mathArray[1]);
-        display.textContent = operate(firstNumber, secondNumber, multiply);
+        firstNumber = parseFloat(mathArray[0]);
+        secondNumber = parseFloat(mathArray[1]);
+        display.textContent = Number(
+            multiply(firstNumber, secondNumber).toFixed(4)
+        );
         mathArray = [display.textContent];
     }
     if (mathArray.includes("/")) {
         mathArray = mathArray.split("/");
-        console.log(mathArray);
-        firstNumber = parseInt(mathArray[0]);
-        secondNumber = parseInt(mathArray[1]);
-        display.textContent = operate(firstNumber, secondNumber, divide);
+        firstNumber = parseFloat(mathArray[0]);
+        secondNumber = parseFloat(mathArray[1]);
+        display.textContent = Number(
+            divide(firstNumber, secondNumber).toFixed(4)
+        );
         if (secondNumber == 0) {
             alert("You can't do that, you ding dong.");
             clear();
@@ -124,6 +128,16 @@ equals.addEventListener("click", () => {
     }
     enableOperators();
     newEquation = true;
+    if (display.textContent === NaN) {
+        display.textContent = "err";
+    }
+    dot.disabled = false;
+});
+
+del.addEventListener("click", () => {
+    mathArray = mathArray.split("");
+    mathArray.splice(mathArray.length - 1, 1);
+    display.textContent = mathArray.join("");
 });
 
 clr.addEventListener("click", () => {
